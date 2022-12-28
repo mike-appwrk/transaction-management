@@ -3,8 +3,8 @@ import Transaction from "../models/Transaction.js";
 export const getTransactions = async (req, res) => {
   
   try {
-    const transactions = await Transaction.find();
-    console.log({transactions})
+    const transactions = await Transaction.find()
+      .sort({ date: 1 });
     res.status(200);
     res.json(transactions);
   } catch (error) {

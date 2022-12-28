@@ -3,24 +3,32 @@ import moment from "moment";
 
 function Transactions ({ transactions }) {
 
-  let runningBalance = 0;
+  let balance = 0;
+
+  const transactionsWithBalance = transactions.map((transaction) => {
+    balance = transaction.type === 'credit' ? balance + transaction.amount : balance - transaction.amount;
+    return {
+      ...transaction,
+      balance
+    }
+  });
 
   return (
     <div className="table-wrap">
       <table>
         <TransactionsTableHeaders />
         <tbody>
-        {transactions.map((transaction) => {
-          runningBalance = transaction.type === 'credit' ? runningBalance + transaction.amount : runningBalance - transaction.amount;
+        {transactionsWithBalance.reverse().map((transaction) => {
+          const id = transaction['_id'];
           const formattedDate = moment(transaction?.date).format('MM/D/YYYY');
 
           return (
-            <tr>
+            <tr id={id}>
               <td>{formattedDate}</td>
               <td>{transaction?.description}</td>
               <td>{transaction.type === 'credit' ? transaction.amount : '-'}</td>
               <td>{transaction.type === 'debit' ? transaction.amount : '-'}</td>
-              <td>{runningBalance}</td>
+              <td>{transaction.balance}</td>
             </tr>
           )
         })}
