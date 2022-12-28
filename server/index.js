@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import router from "./routes/index.js";
 
 dotenv.config();
 
@@ -19,13 +20,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', (req, res) => {
-  res.send('Hey Client!')
-});
+app.use('/api/', router);
+
+
 
 //server
 app.set('port', process.env.PORT || 7777);
 const server = app.listen(app.get('port'), () => {
   console.log('Server Running at PORT: ', server.address().port);
 });
-
