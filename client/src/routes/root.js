@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Root() {
 
@@ -9,7 +10,11 @@ export default function Root() {
 
   return (
     <div>
-      <h1>Transaction Management</h1>
+      <h1>
+        <Link to="/">
+          Transaction Management
+        </Link>
+      </h1>
       <div className="main">
         <Outlet />
       </div>
