@@ -1,5 +1,15 @@
-import mongoose from "mongoose";
+import Transaction from "../models/Transaction.js";
 
 export const getTransactions = async (req, res) => {
-  res.send('Hey Client!')
+  
+  try {
+    const transactions = await Transaction.find();
+    res.status(200);
+    res.json(transactions);
+  } catch (error) {
+    res.status(404);
+    res.send('Error: ', res.status);
+    console.log({message: error.message});
+  }
+
 }
