@@ -1,0 +1,19 @@
+*, 
+*::after, 
+*::before{
+  box-sizing: border-box;
+}
+
+table {
+  margin: auto;
+}
+
+th, td {
+  border: 1px solid;
+  padding: 5px 60px;
+  text-align: center;
+}
+
+.table-wrap{
+  display: flex;
+}

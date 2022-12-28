@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import HomePage from './pages/HomePage';
 import CreatePage from './pages/CreatePage';
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from './routes/root';
 import ErrorPage from './pages/ErrorPage';
+import "./index.css";
 
 
 const router = createBrowserRouter([

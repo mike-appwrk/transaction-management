@@ -5,7 +5,7 @@ function Transactions ({ transactions }) {
   let runningBalance = 0;
 
   return (
-    <div>
+    <div className="table-wrap">
       <table>
         <TransactionsTableHeaders />
         <tbody>
