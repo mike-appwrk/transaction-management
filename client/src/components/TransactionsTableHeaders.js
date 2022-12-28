@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function TransactionsTableHeaders () {
   return (
     <thead>
@@ -6,7 +8,11 @@ function TransactionsTableHeaders () {
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
-        <th>+ Add Transaction</th>
+        <th>
+          <Link to="/create">
+            <span>+ Add Transaction</span>
+          </Link>
+        </th>
       </tr>
       <tr>
         <td>&nbsp;</td>
