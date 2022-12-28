@@ -14,3 +14,15 @@ export const getTransactions = async (req, res) => {
   }
 
 }
+
+export const createTransaction = async (req, res) => {
+  const newTransaction = new Transaction(req.body);
+  try{
+    await newTransaction.save();
+    res.status(201);
+    res.json(newTransaction);
+  } catch (error) {
+    res.status(409);
+    console.log({ message: error.message });
+  }
+}
