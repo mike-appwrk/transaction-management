@@ -11,14 +11,14 @@ function Transactions ({ transactions }) {
       ...transaction,
       balance
     }
-  });
+  }).reverse();
 
   return (
     <div className="table-wrap">
       <table>
         <TransactionsTableHeaders />
         <tbody>
-        {transactionsWithBalance.reverse().map((transaction) => {
+        {transactionsWithBalance.map((transaction) => {
           const id = transaction['_id'];
           const formattedDate = moment(transaction?.date).format('MM/D/YYYY');
 
