@@ -19,12 +19,12 @@ function HomePage () {
 
     fetchTransactions();
     
-  }, [])
+  }, []);
 
   return (
     <div>
       <h2>Home Page</h2>
-      <Transactions />
+      <Transactions transactions={transactions}/>
     </div>
   )
 }
