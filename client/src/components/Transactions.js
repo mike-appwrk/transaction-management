@@ -1,7 +1,14 @@
+import TransactionsTableHeaders from "./TransactionsTableHeaders";
+
 function Transactions () {
   return (
     <div>
-      Transactions!
+      <table>
+        <TransactionsTableHeaders />
+        <tbody>
+        
+        </tbody>
+      </table>
     </div>
   )
 }
