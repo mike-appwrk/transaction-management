@@ -7,7 +7,7 @@ function App () {
 
   return (
     <div>
-      Hi Server!
+      
     </div>
   )
 }
