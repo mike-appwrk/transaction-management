@@ -7,7 +7,7 @@ import Root from './routes/root';
 import ErrorPage from './pages/ErrorPage';
 import "./index.css";
 import TransactionPage from './pages/TransactionPage';
-
+import EditPage from './pages/EditPage';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/transaction/:id",
         element: <TransactionPage />,
+      },
+      {
+        path: "/edit/:id",
+        element: <EditPage />,
       },
     ],
   },

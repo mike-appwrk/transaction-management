@@ -13,3 +13,10 @@ export const createTransaction = (transaction) => fetch(`${url}/create`, {
   body: JSON.stringify(transaction),
 });
 
+export const updateTransaction = (id, transaction) => fetch(`${url}/edit/${id}`, {
+  method: 'PATCH', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(transaction),
+});

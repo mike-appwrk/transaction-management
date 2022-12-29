@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getTransaction } from "../api";
 import { dateFormatter } from "../lib/helpers";
 
-function TransactionDetails() {
-
-  const { id } = useParams();
+function TransactionDetails({ id }) {
 
   const [state, setState] = useState({
     loading: true,
