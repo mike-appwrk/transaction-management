@@ -8,6 +8,7 @@ import ErrorPage from './pages/ErrorPage';
 import "./index.css";
 import TransactionPage from './pages/TransactionPage';
 import EditPage from './pages/EditPage';
+import DeletePage from './pages/DeletePage';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/edit/:id",
         element: <EditPage />,
+      },
+      {
+        path: "/delete/:id",
+        element: <DeletePage />,
       },
     ],
   },

@@ -10,6 +10,7 @@ function TransactionPage() {
       <TransactionDetails id={id} />
       <div>
         <Link to={`/edit/${id}`}>Edit</Link>
+        <Link to={`/delete/${id}`}>Delete</Link>
       </div>
     </div>
   )

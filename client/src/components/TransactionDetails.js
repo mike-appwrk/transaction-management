@@ -39,7 +39,7 @@ function TransactionDetails({ id }) {
         <div>
           <h2>{transaction?.description}</h2>
             <p><span>Transacted: </span>
-            <span>{dateFormatter(transaction?.date)}</span>
+            <span>{transaction?.date ? dateFormatter(transaction.date) : null}</span>
           </p>
           <p>
             <span>{transaction?.type} Amount: </span>

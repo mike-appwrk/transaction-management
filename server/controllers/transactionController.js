@@ -59,3 +59,18 @@ export const updateTransaction = async (req, res) => {
     console.log({ message: error.message });
   }
 }
+
+export const deleteTransaction = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No transaction with id: ${id}`);
+  
+  try {
+    const transaction = await Transaction.findByIdAndDelete(id);
+    res.json({ message: 'Deleted Successfully!' });
+  } catch (error) {
+    res.status(409);
+    console.log({ message: error.message });
+  }
+
+}

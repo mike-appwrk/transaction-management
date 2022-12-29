@@ -20,3 +20,5 @@ export const updateTransaction = (id, transaction) => fetch(`${url}/edit/${id}`,
   },
   body: JSON.stringify(transaction),
 });
+
+export const deleteTransaction = (id) => fetch(`${url}/delete/${id}`,  { method: 'DELETE' });
