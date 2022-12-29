@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getTransaction, updateTransaction } from "../api";
 import { useNavigate, useParams } from "react-router-dom";
 import { dateFormatter } from "../lib/helpers";
+import { v4 as uuidv4 } from "uuid";
 
 function EditForm () {
 
@@ -35,11 +36,18 @@ function EditForm () {
     async function postTransactionUpdates() {
       try {
         const res = await updateTransaction (id, state.transaction);
+        console.log({res});
+        if (res.status === 400){
+          const json = await res.json();
+          setState({ ...state, loading: false, error: json?.errors })
+          return;
+        }
         const updatedTransaction = await res.json();
-        console.log({ updatedTransaction });
         navigate(`/transaction/${id}`);
       } catch (error) {
-        console.log({ message: error.message });
+        const { message } = error;
+        console.log({message: error.message});
+        setState({ ...state, loading: false, error: { message } })
       }
     }
 
@@ -70,13 +78,22 @@ function EditForm () {
 
   const { loading, transaction, error } = state;
 
+  const errorsMap = error.length ? (
+    error.map((error) => (
+      <p key={uuidv4()}>{error.msg}</p>
+    ))
+  ): null;
+
   return (
     <div>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <form onSubmit={handleFormSubmit}>
-
+        
+          {errorsMap}
+          {error.message ? <p>Server is down. Please try after some time!</p> : null}
+          
           <div className="form-group">
             <label htmlFor="type">Transaction Type</label>
             <select id="type" name="type" value={transaction.type} onChange={handleChange}>
