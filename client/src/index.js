@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from './routes/root';
 import ErrorPage from './pages/ErrorPage';
 import "./index.css";
+import TransactionPage from './pages/TransactionPage';
 
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/create",
         element: <CreatePage />,
+      },
+      {
+        path: "/transaction/:id",
+        element: <TransactionPage />,
       },
     ],
   },

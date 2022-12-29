@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import TransactionsTableHeaders from "./TransactionsTableHeaders";
-import moment from "moment";
+import { dateFormatter } from "../lib/helpers";
+
 
 function Transactions ({ transactions }) {
 
@@ -20,15 +22,16 @@ function Transactions ({ transactions }) {
         <tbody>
         {transactionsWithBalance.map((transaction) => {
           const id = transaction['_id'];
-          const formattedDate = moment(transaction?.date).format('MM/D/YYYY');
+          const formattedDate = dateFormatter(transaction?.date);
 
           return (
-            <tr id={id}>
+            <tr id={id} key={id}>
               <td>{formattedDate}</td>
               <td>{transaction?.description}</td>
               <td>{transaction.type === 'credit' ? transaction.amount : '-'}</td>
               <td>{transaction.type === 'debit' ? transaction.amount : '-'}</td>
               <td>{transaction.balance}</td>
+              <td><Link to={`/transaction/${id}`}>View</Link></td>
             </tr>
           )
         })}

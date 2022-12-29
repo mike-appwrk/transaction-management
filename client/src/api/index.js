@@ -1,7 +1,9 @@
 const url = "http://localhost:7777/api";
 
 
-export const getTransactions = () => fetch(url).then(res => res.json()).catch(console.log);
+export const getTransactions = () => fetch(url).then(res => res.json()).catch((error) => error);
+
+export const getTransaction = (id) => fetch(`${url}/transaction/${id}`);
 
 export const createTransaction = (transaction) => fetch(`${url}/create`, {
   method: 'POST', 
@@ -10,3 +12,4 @@ export const createTransaction = (transaction) => fetch(`${url}/create`, {
   },
   body: JSON.stringify(transaction),
 });
+

@@ -13,8 +13,10 @@ function TransactionsTableHeaders () {
             <span>+ Add Transaction</span>
           </Link>
         </th>
+        <th>&nbsp;</th>
       </tr>
       <tr>
+        <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -27,6 +29,7 @@ function TransactionsTableHeaders () {
         <th>Credit</th>
         <th>Debit</th>
         <th>Running </th>
+        <th>&nbsp;</th>
       </tr> 
     </thead>
   )

@@ -19,7 +19,7 @@ function Form () {
     async function postTransaction() {
       try {
         const transactionRes = await createTransaction(transaction);
-        console.log({ transactionRes })
+        console.log({ transactionRes });
         return navigate("/");
       } catch (error) {
         console.log({message: error.message});

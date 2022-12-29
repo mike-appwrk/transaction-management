@@ -9,10 +9,23 @@ export const getTransactions = async (req, res) => {
     res.json(transactions);
   } catch (error) {
     res.status(404);
-    res.send('Error: ', res.status);
+    res.json({error});
     console.log({message: error.message});
   }
 
+}
+
+export const getTransaction = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const transaction = await Transaction.findById(id)
+    res.status(200);
+    res.json(transaction);
+  } catch (error) {
+    res.status(404);
+    res.json({ error });
+    console.log({message: error.message});
+  }
 }
 
 export const createTransaction = async (req, res) => {
@@ -23,6 +36,7 @@ export const createTransaction = async (req, res) => {
     res.json(newTransaction);
   } catch (error) {
     res.status(409);
+    res.json({ error })
     console.log({ message: error.message });
   }
 }
