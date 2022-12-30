@@ -16,10 +16,32 @@ function Form () {
     error: false
   });
 
+  function validateFormData() {
+    let errors = [];
+    const { transaction: { description, amount, type, date } } = state;
+    if (!description) errors.push({ msg: 'Please enter a descrption' });
+    if (!amount) errors.push({ msg: 'Please enter an amount greater than 0' });
+    if (typeof amount !== 'number' ) errors.push({ msg: 'Amount should be a number!' });
+    if (! ['credit', 'debit'].includes(type) ) errors.push({ msg: 'Please select a valid type!' });
+    if (!date) errors.push({ msg: 'Please select a date!' });
+    
+    if (errors.length) return errors;
+    return false;
+  }
+
   const navigate = useNavigate();
 
   function handleFormSubmit(e) {
     e.preventDefault();
+
+    const validationErrors = validateFormData();
+    if (validationErrors.length) {
+      setState({
+        ...state,
+        error: validationErrors
+      });
+      return;
+    }
 
     async function postTransaction() {
       setState({ ...state, loading: true })
@@ -44,8 +66,10 @@ function Form () {
   }
 
   function handleChange(e) {
+    
     let value = e.target.value;
-    const updatedTransaction = { ...transaction, [e.target.name]: e.target.value};
+    if (e.target.type === 'number') value = parseInt(value);
+    const updatedTransaction = {...state.transaction, [e.target.name]: value}
     setState({
       ...state,
       transaction: updatedTransaction
@@ -68,16 +92,15 @@ function Form () {
 
   const { loading, transaction, error } = state;
 
-  const errorsMap = error.length ? (
-    error.map((error) => (
-      <p key={uuidv4()}>{error.msg}</p>
-    ))
-  ): null;
-
   return (
     <div>
       <form onSubmit={handleFormSubmit}>
-        {errorsMap}
+        {error.length ? (
+          error.map((error) => (
+            <p key={uuidv4()}>{error.msg}</p>
+            ))
+          ): null
+        }
         {error.message ? <p>Server is down. Please try after some time!</p> : null}
         <div className="form-group">
           <label htmlFor="type">Transaction Type</label>
@@ -105,6 +128,7 @@ function Form () {
         <button type="submit">Submit</button>
         
         <button type="button" onClick={handleClear}>Clear</button>
+        {loading ? 'Loading...' : null}
       </form>
     </div>
   )

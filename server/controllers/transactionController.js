@@ -13,7 +13,6 @@ export const handleValidationErrors = (req, res, next) => {
   const { errors } = validationResult(req);
   if (errors.length) {
     res.status(400);
-    console.log({ errors });
     return res.json({ errors });
   }
   next();
