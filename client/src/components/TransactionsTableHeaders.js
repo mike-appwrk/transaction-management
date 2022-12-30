@@ -2,34 +2,14 @@ import { Link } from "react-router-dom";
 
 function TransactionsTableHeaders () {
   return (
-    <thead>
+    <thead className="bg-secondary text-primary-400">
       <tr>
-        <th>Office Transactions</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>
-          <Link to="/create">
-            <span>+ Add Transaction</span>
-          </Link>
-        </th>
-        <th>&nbsp;</th>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Credit</th>
-        <th>Debit</th>
-        <th>Running </th>
-        <th>&nbsp;</th>
+        <th className="text-left py-4 pr-16 pl-8">Description</th>
+        <th className="text-left py-4 pr-16 pl-8">Date</th>
+        <th className="text-left py-4 pr-16 pl-8">Credit</th>
+        <th className="text-left py-4 pr-16 pl-8">Debit</th>
+        <th className="text-left py-4 pr-16 pl-8">Running </th>
+        <th className="text-left py-4 pr-16 pl-8">&nbsp; </th>
       </tr> 
     </thead>
   )

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Main from "../components/Main";
+import Sidebar from "../components/Sidebar";
 
 export default function Root() {
 
@@ -9,15 +11,11 @@ export default function Root() {
   }, []);
 
   return (
-    <div>
-      <h1>
-        <Link to="/">
-          Transaction Management
-        </Link>
-      </h1>
-      <div className="main">
+    <div className="grid grid-cols-ui">
+      <Sidebar />
+      <Main>
         <Outlet />
-      </div>
+      </Main>
     </div> 
     
   );

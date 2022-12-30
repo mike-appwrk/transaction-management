@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TransactionsTableHeaders from "./TransactionsTableHeaders";
 import { dateFormatter } from "../lib/helpers";
 
 
 function Transactions ({ transactions }) {
+
+  const navigate = useNavigate();
 
   let balance = 0;
 
@@ -15,23 +17,25 @@ function Transactions ({ transactions }) {
     }
   }).reverse();
 
+
   return (
-    <div className="table-wrap">
-      <table>
+    <div className="text-black">
+      <h2 className="font-bold text-xl mb-10">Transactions History</h2>
+      <table className="rounded-md overflow-hidden">
         <TransactionsTableHeaders />
         <tbody>
-        {transactionsWithBalance.map((transaction) => {
+        {transactionsWithBalance.map((transaction, index) => {
           const id = transaction['_id'];
           const formattedDate = dateFormatter(transaction?.date);
 
           return (
-            <tr id={id} key={id}>
-              <td>{formattedDate}</td>
-              <td>{transaction?.description}</td>
-              <td>{transaction.type === 'credit' ? transaction.amount : '-'}</td>
-              <td>{transaction.type === 'debit' ? transaction.amount : '-'}</td>
-              <td>{transaction.balance}</td>
-              <td><Link to={`/transaction/${id}`}>View</Link></td>
+            <tr id={id} key={id} className="odd:bg-white even:bg-primary-400 cursor-pointer" onClick={() => navigate(`/transaction/${id}`)}>
+              <td className="pr-16 pl-8 py-4 capitalize">{transaction?.description}</td>
+              <td className="pr-16 pl-8 py-4 capitalize">{formattedDate}</td>
+              <td className="pr-16 pl-8 py-4 capitalize">{transaction.type === 'credit' ? transaction.amount : '-'}</td>
+              <td className="pr-16 pl-8 py-4 capitalize">{transaction.type === 'debit' ? transaction.amount : '-'}</td>
+              <td className="pr-16 pl-8 py-4 capitalize">{transaction.balance}</td>
+              <td className="pr-16 pl-8 py-4 capitalize"><Link to={`/transaction/${id}`}>View</Link></td>
             </tr>
           )
         })}
