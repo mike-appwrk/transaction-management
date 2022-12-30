@@ -2,6 +2,9 @@ import { useState } from "react";
 import { createTransaction } from "../api";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import Input from "./Input";
+import Label from "./Label";
+import Select from "./Select";
 
 function Form () {
 
@@ -93,42 +96,44 @@ function Form () {
   const { loading, transaction, error } = state;
 
   return (
-    <div>
+    <div className="p-12 bg-white">
+      <h2 className="mb-8 text-lg font-bold">Add A Transaction</h2>
       <form onSubmit={handleFormSubmit}>
         {error.length ? (
           error.map((error) => (
-            <p key={uuidv4()}>{error.msg}</p>
+            <p className="text-md text-red-700 my-2" key={uuidv4()}>{error.msg}</p>
             ))
           ): null
         }
         {error.message ? <p>Server is down. Please try after some time!</p> : null}
-        <div className="form-group">
-          <label htmlFor="type">Transaction Type</label>
-          <select id="type" name="type" value={transaction.type} onChange={handleChange}>
+        <div className="mb-4">
+          <Label htmlFor="type">Transaction Type</Label>
+          <Select id="type" name="type" value={transaction.type} onChange={handleChange}>
             <option value="credit">Credit</option>
             <option value="debit">Debit</option>
-          </select>
+          </Select>
         </div>
         
-        <div className="form-group">
-          <label htmlFor="amount">Amount</label>
-          <input type="number" id="amount" name="amount" value={transaction.amount} onChange={handleChange} />
+        <div className="mb-4">
+          <Label htmlFor="amount">Amount</Label>
+          <Input type="number" id="amount" name="amount" value={transaction.amount} onChange={handleChange}/>
+        </div>
+        <div className="mb-4">
+          <Label htmlFor="description">Description</Label>
+          <Input type="text" id="description" name="description" value={transaction.description} onChange={handleChange} />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <input type="text" id="description" name="description" value={transaction.description} onChange={handleChange} />
+        <div className="mb-4">
+          <Label htmlFor="date">Date</Label>
+          <Input type="date" id="date" name="date" value={transaction.date} onChange={handleChange} />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="date">Date</label>
-          <input type="date" id="date" name="date" value={transaction.date} onChange={handleChange} />
+        <div className="flex gap-4 mt-8">
+          <button type="submit" className="btn btn--primary">Submit</button>
+          
+          <button type="button" onClick={handleClear} className="btn btn--secondary">Clear</button>
+          {loading ? 'Loading...' : null}
         </div>
-
-        <button type="submit">Submit</button>
-        
-        <button type="button" onClick={handleClear}>Clear</button>
-        {loading ? 'Loading...' : null}
       </form>
     </div>
   )

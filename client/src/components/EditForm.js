@@ -3,6 +3,9 @@ import { getTransaction, updateTransaction } from "../api";
 import { useNavigate, useParams } from "react-router-dom";
 import { dateFormatter } from "../lib/helpers";
 import { v4 as uuidv4 } from "uuid";
+import Label from "./Label";
+import Input from "./Input";
+import Select from "./Select";
 
 function EditForm () {
 
@@ -112,39 +115,44 @@ function EditForm () {
   ): null;
 
   return (
-    <div>
+    
+    <div className="p-12 bg-white">
+      <h2 className="mb-8 text-lg font-bold">Update Transaction</h2>
       <form onSubmit={handleFormSubmit}>
       
         {errorsMap}
         {error.message ? <p>Server is down. Please try after some time!</p> : null}
         
-        <div className="form-group">
-          <label htmlFor="type">Transaction Type</label>
-          <select id="type" name="type" value={transaction.type} onChange={handleChange}>
+        <div className="mb-4">
+          <Label htmlFor="type">Transaction Type</Label>
+          <Select id="type" name="type" value={transaction.type} onChange={handleChange}>
             <option value="credit">Credit</option>
             <option value="debit">Debit</option>
-          </select>
+          </Select>
         </div>
         
-        <div className="form-group">
-          <label htmlFor="amount">Amount</label>
-          <input type="number" id="amount" name="amount" value={transaction.amount} onChange={handleChange}/>
+        <div className="mb-4">
+          <Label htmlFor="amount">Amount</Label>
+          <Input type="number" id="amount" name="amount" value={transaction.amount} onChange={handleChange}/>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <input type="text" id="description" name="description" value={transaction.description} onChange={handleChange}/>
+        <div className="mb-4">
+          <Label htmlFor="description">Description</Label>
+          <Input type="text" id="description" name="description" value={transaction.description} onChange={handleChange}/>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="date">Date</label>
-          <input type="date" id="date" name="date" value={dateFormatter(transaction.date, 'YYYY-MM-DD')} onChange={handleChange}/>
+        <div className="mb-4">
+          <Label htmlFor="date">Date</Label>
+          <Input type="date" id="date" name="date" value={dateFormatter(transaction.date, 'YYYY-MM-DD')} onChange={handleChange}/>
         </div>
 
-        <button type="submit">Submit</button>
-        
-        <button type="button" onClick={handleClear}>Clear</button>
-        {loading ? 'Loading...' : null}
+
+        <div className="flex gap-4 mt-8">
+          <button type="submit"  className="btn btn--primary">Submit</button>
+          
+          <button type="button" onClick={handleClear} className="btn btn--secondary">Clear</button>
+          {loading ? 'Loading...' : null}
+        </div>
       </form>
     </div>
   )
