@@ -7,7 +7,7 @@ function DeletePage() {
 
   return (
     <div>
-      <h4>Do you really want to delete {id} ?</h4>
+      <h4>Do you really want to delete transaction #{id} ?</h4>
       <DeleteForm id={id} />
     </div>
   )

@@ -20,7 +20,10 @@ function Transactions ({ transactions }) {
 
   return (
     <div className="text-black">
-      <h2 className="font-bold text-xl mb-10">Transactions History</h2>
+      <div  className="flex gap-4 items-center mb-10">
+        <h2 className="font-bold text-xl">Transactions History</h2>
+        <Link className="btn btn--primary" to="/create">Add New</Link>
+      </div>
       <table className="rounded-md overflow-hidden">
         <TransactionsTableHeaders />
         <tbody>

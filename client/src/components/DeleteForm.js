@@ -22,8 +22,10 @@ function DeleteForm ({ id }) {
 
   return (
     <form onSubmit={handleDelete}>
-      <button type="submit">Delete</button>
-      <button onClick={handleReturnClick} type="button">Go Back</button>
+      <div className="flex gap-2  mt-4">
+        <button type="submit" className="btn btn--primary">Confirm</button>
+        <button onClick={handleReturnClick} type="button" className="btn btn--secondary">Go Back</button>
+      </div>
     </form>
   )
 }

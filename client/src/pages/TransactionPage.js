@@ -8,9 +8,9 @@ function TransactionPage() {
   return (
     <div>
       <TransactionDetails id={id} />
-      <div>
-        <Link to={`/edit/${id}`}>Edit</Link>
-        <Link to={`/delete/${id}`}>Delete</Link>
+      <div className="flex gap-2 mt-4">
+        <Link to={`/edit/${id}`} className="btn btn--primary">Edit</Link>
+        <Link to={`/delete/${id}`} className="btn btn--secondary">Delete</Link>
       </div>
     </div>
   )

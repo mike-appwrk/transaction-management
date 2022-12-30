@@ -37,12 +37,15 @@ function TransactionDetails({ id }) {
         <p>Loading ...</p>
       ) : (
         <div>
-          <h2>{transaction?.description}</h2>
-            <p><span>Transacted: </span>
-            <span>{transaction?.date ? dateFormatter(transaction.date) : null}</span>
+          <h2 className="mb-1">
+            <span>{transaction?.description}</span>
+            </h2>
+          <p className="mb-1">
+              <span>Transacted: </span>
+              <span>{transaction?.date ? dateFormatter(transaction.date) : null}</span>
           </p>
-          <p>
-            <span>{transaction?.type} Amount: </span>
+          <p className="mb-1">
+            <span className="capitalize">{transaction?.type} Amount: </span>
             <span>{transaction?.amount}</span>
           </p>
         </div>
