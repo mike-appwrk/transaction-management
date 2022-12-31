@@ -21,7 +21,12 @@ export const handleValidationErrors = (req, res, next) => {
 export const getTransactions = async (req, res) => {
   
   try {
-    const transactions = await Transaction.find()
+    
+    const offset = req.query.offset ? Number(req.query.offset) : 0;
+    const limit = req.query.limit || null;
+
+    const transactions = await Transaction
+      .find({}, null, { skip: offset, limit: limit })
       .sort({ date: 1 });
     res.status(200);
     res.json(transactions);

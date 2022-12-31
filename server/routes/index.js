@@ -3,7 +3,7 @@ import { getTransactions, getTransaction, createTransaction, updateTransaction, 
 
 const router = express.Router();
 
-router.get('/', getTransactions);
+router.get('/transactions', getTransactions);
 
 router.get('/transaction/:id', getTransaction);
 

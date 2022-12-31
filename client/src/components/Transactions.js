@@ -24,7 +24,7 @@ function Transactions ({ transactions }) {
         <h2 className="font-bold text-xl">Transactions History</h2>
         <Link className="btn btn--primary" to="/create">Add New</Link>
       </div>
-      <table className="rounded-md overflow-hidden">
+      <table className="rounded-md overflow-hidden mb-10">
         <TransactionsTableHeaders />
         <tbody>
         {transactionsWithBalance.map((transaction, index) => {
@@ -32,7 +32,7 @@ function Transactions ({ transactions }) {
           const formattedDate = dateFormatter(transaction?.date);
 
           return (
-            <tr id={id} key={id} className="odd:bg-white even:bg-primary-400 cursor-pointer" onClick={() => navigate(`/transaction/${id}`)}>
+            <tr id={id} key={`${id}-${index}`} className="odd:bg-white even:bg-primary-400 cursor-pointer" onClick={() => navigate(`/transaction/${id}`)}>
               <td className="pr-16 pl-8 py-4 capitalize">{transaction?.description}</td>
               <td className="pr-16 pl-8 py-4 capitalize">{formattedDate}</td>
               <td className="pr-16 pl-8 py-4 capitalize">{transaction.type === 'credit' ? transaction.amount : '-'}</td>

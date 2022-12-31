@@ -23,7 +23,7 @@ function Form () {
     let errors = [];
     const { transaction: { description, amount, type, date } } = state;
     if (!description) errors.push({ msg: 'Please enter a descrption' });
-    if (!amount) errors.push({ msg: 'Please enter an amount greater than 0' });
+    if (amount < 1) errors.push({ msg: 'Please enter an amount greater than 0' });
     if (typeof amount !== 'number' ) errors.push({ msg: 'Amount should be a number!' });
     if (! ['credit', 'debit'].includes(type) ) errors.push({ msg: 'Please select a valid type!' });
     if (!date) errors.push({ msg: 'Please select a date!' });
@@ -50,13 +50,14 @@ function Form () {
       setState({ ...state, loading: true })
       try {
         const res = await createTransaction(transaction);
+        const newTransaction = await res.json();
         console.log({res})
         if (res.status === 400){
           const json = await res.json();
           setState({ ...state, loading: false, error: json?.errors })
           return;
         }
-        return navigate("/");
+        return navigate(`/transaction/${newTransaction._id}`);
       } catch (error) {
         const { message } = error;
         console.log({message: error.message});
@@ -90,7 +91,6 @@ function Form () {
       ...state,
       transaction: updatedTransaction
     });
-
   }
 
   const { loading, transaction, error } = state;
