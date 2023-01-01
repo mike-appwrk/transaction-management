@@ -108,19 +108,18 @@ function EditForm () {
 
   const { loading, transaction, error } = state;
 
-  const errorsMap = error.length ? (
-    error.map((error) => (
-      <p key={uuidv4()}>{error.msg}</p>
-    ))
-  ): null;
-
   return (
     
     <div className="p-12 bg-white">
       <h2 className="mb-8 text-lg font-bold">Update Transaction</h2>
       <form onSubmit={handleFormSubmit}>
       
-        {errorsMap}
+       {error.length ? (
+          error.map((error) => (
+            <p className="text-md text-red-700 my-2" key={uuidv4()}>{error.msg}</p>
+            ))
+          ): null
+        }
         {error.message ? <p>Server is down. Please try after some time!</p> : null}
         
         <div className="mb-4">

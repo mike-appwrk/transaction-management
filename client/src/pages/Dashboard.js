@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getTransactions } from "../api";
-import Transactions from "../components/Transactions";
+import TransactionsEditor from "../components/TransactionsEditor";
+import useElementOnScreen from "../lib/useElementOnScreen";
 
-function HomePage () {
+function Dashboard () {
 
   const [ state, setState ] = useState({
     transactions: [],
@@ -11,8 +12,20 @@ function HomePage () {
     error: false,
     allResultsLoaded: false
   });
+
+  const [ ref, visible ] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1
+  });
+
+  useEffect(() => {
+    if (visible) {
+      fetchTransactions();
+    }
+  }, [visible])
  
-  const limit = 5;
+  const limit = 8;
 
   async function fetchTransactions () {
     try {
@@ -31,11 +44,6 @@ function HomePage () {
     }
   }
 
-  useEffect(() => {
-    setState({ ...state, loading: true })
-    fetchTransactions();
-  }, []);
-
   function loadMore() {
     fetchTransactions();
   }
@@ -44,14 +52,14 @@ function HomePage () {
 
   return (
     <div>
-      <Transactions transactions={transactions} loading={state.loading}/>
-      {state.loading ? null : (
+      <TransactionsEditor transactions={state.transactions} loading={state.loading}/>
+      {state.loading || state.allResultsLoaded ? null : (
         <div>
-          <button onClick={loadMore} className="btn btn--primary disabled:opacity-50" disabled={allResultsLoaded ? true : false}>Load More</button>
+          <button ref={ref} onClick={loadMore} className="btn btn--primary invisible opacity-0" disabled={allResultsLoaded ? true : false}>Load More</button>
         </div>
       )}
     </div>
   )
 }
 
-export default HomePage;
+export default Dashboard;

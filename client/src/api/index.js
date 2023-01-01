@@ -1,7 +1,7 @@
 const url = "http://localhost:7777/api";
 
 
-export const getTransactions = (offset = 0, limit = null) => fetch(`${url}/transactions`).then(res => res.json()).catch((error) => error);
+export const getTransactions = (offset = 0, limit = null) => fetch(`${url}/transactions?offset=${offset}&limit=${limit}`).then(res => res.json()).catch((error) => error);
 
 export const getTransaction = (id) => fetch(`${url}/transaction/${id}`);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import HomePage from './pages/HomePage';
 import CreatePage from './pages/CreatePage';
+import Dashboard from './pages/Dashboard';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from './routes/root';
 import ErrorPage from './pages/ErrorPage';
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />
       },
       {
         path: "/create",
