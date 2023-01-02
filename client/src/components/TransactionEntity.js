@@ -2,8 +2,7 @@ import { useState } from "react";
 import { dateFormatter } from "../lib/helpers";
 import EditField from "./EditField";
 import { updateTransaction } from "../api";
-
-function TransactionEntity({ transaction, id, index }) {
+function TransactionEntity({ transaction, id, index, updateModalContent, updateTransactionsWithBalance }) {
 
   const [details, setDetails] = useState(transaction);
   const [editing, setEditing] = useState(false);
@@ -15,6 +14,7 @@ function TransactionEntity({ transaction, id, index }) {
     const { description, amount, date } = details;
     if (!description) errors.push('description');
     if (amount < 1) errors.push('amount');
+    if (!amount) errors.push('amount');
     if (!date) errors.push('date');
     return errors;
   }
@@ -25,7 +25,7 @@ function TransactionEntity({ transaction, id, index }) {
     setDetails({ ...details, [e.target.name]: value })
   }
 
-  function handleEditClick() {
+  function handleEditClick () {
     setEditing(true);
   }
 
@@ -42,6 +42,7 @@ function TransactionEntity({ transaction, id, index }) {
       }
       const newDetails = await res.json();
       setDetails(newDetails);
+      updateTransactionsWithBalance(newDetails);
       setEditing(false);
       setLoading(false);
       setErrors([]);
@@ -67,9 +68,9 @@ function TransactionEntity({ transaction, id, index }) {
   const color = index % 2 === 0 ? 'white' : 'primary-400';
 
   return (
-    <tr id={id} key={`${id}-${index}`} className="odd:bg-white even:bg-primary-400 cursor-pointer">
-      <td className="pr-16 pl-8 py-4 capitalize relative">
-        <span>{details?.description}</span>
+    <tr id={id} key={`${id}-${index}`} className="odd:bg-white even:bg-primary-400">
+      <td onClick={() => updateModalContent(id)} className="pr-16 pl-8 py-4 capitalize relative cursor-pointer">
+        <span >{details?.description}</span>
          {editing ? <EditField type="text" color={color} error={errors.includes('description')} name="description" value={details?.description} onChange={handleChange}/> : null}
       </td>
       <td className="pr-16 pl-8 py-4 capitalize relative">
@@ -91,6 +92,7 @@ function TransactionEntity({ transaction, id, index }) {
         <td className="py-4 w-48 capitalize">
           <button className="btn btn--primary" onClick={handleEditClick}>Edit</button>
         </td>
+        
         ) : null
       }
       {editing ? (
